@@ -21,7 +21,6 @@
 		update_icon()
 	if(prob(25))
 		new /obj/effect/turf_decal/asphalt(src)
-	add_moonlight()
 
 /turf/open/floor/plating/asphalt/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -38,7 +37,6 @@
 
 /turf/open/floor/plating/sidewalkalt/Initialize(mapload)
 	. = ..()
-	add_moonlight()
 	if(check_holidays(CHRISTMAS))
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
@@ -61,7 +59,6 @@
 /turf/open/floor/plating/sidewalk/Initialize(mapload)
 	. = ..()
 	icon_state = "[base_icon_state][rand(1, number_of_variations)]"
-	add_moonlight()
 	if(check_holidays(CHRISTMAS))
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
@@ -191,7 +188,6 @@
 
 /turf/open/misc/grass/vamp/Initialize(mapload)
 	. = ..()
-	add_moonlight()
 	icon_state = "grass[rand(1, 3)]"
 	if(check_holidays(CHRISTMAS))
 		if(istype(get_area(src), /area/vtm))
@@ -252,7 +248,6 @@
 
 /turf/open/misc/dirt/vamp/Initialize(mapload)
 	. = ..()
-	add_moonlight()
 	if(check_holidays(CHRISTMAS))
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
@@ -364,18 +359,6 @@
 	. = ..()
 	icon_state = "saint[rand(1, 2)]"
 
-/turf/open/proc/add_moonlight(add_to_starlight = TRUE)
-	set_light(l_on = TRUE, l_range = GLOB.starlight_range, l_power = GLOB.starlight_power, l_color = GLOB.starlight_color)
-
-	if(add_to_starlight)
-		GLOB.starlight += src
-		RegisterSignal(src, COMSIG_TURF_CHANGE, PROC_REF(clear_moonlight))
-
-/turf/open/proc/clear_moonlight()
-	SIGNAL_HANDLER
-	GLOB.starlight -= src
-	UnregisterSignal(src, COMSIG_TURF_CHANGE)
-
 /turf/open/floor/plating/vampwood
 	name = "wood"
 	icon = 'modular_darkpack/modules/walls/icons/floors.dmi'
@@ -385,7 +368,6 @@
 
 /turf/open/floor/plating/vampwood/Initialize(mapload)
 	. = ..()
-	add_moonlight()
 	if(check_holidays(CHRISTMAS))
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
@@ -447,7 +429,6 @@
 /turf/open/misc/beach/vamp/Initialize(mapload)
 	. = ..()
 	icon_state = "sand[rand(1, 4)]"
-	add_moonlight(FALSE)
 	if(check_holidays(CHRISTMAS))
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
@@ -459,10 +440,6 @@
 	icon = 'modular_darkpack/modules/walls/icons/floors.dmi'
 	icon_state = "ocean"
 	baseturfs = /turf/open/water/beach/vamp
-
-/turf/open/water/beach/vamp/Initialize(mapload)
-	. = ..()
-	add_moonlight(FALSE)
 
 /turf/open/water/beach/vamp/deep
 	name = "deep water"
@@ -477,10 +454,9 @@
 	icon = 'modular_darkpack/modules/walls/icons/floors.dmi'
 	icon_state = "acid"
 	baseturfs = /turf/open/water/acid/vamp
-
-/turf/open/water/acid/vamp/Initialize(mapload)
-	. = ..()
-	set_light(1, 0.5, "#1b7c4c")
+	light_color = "#1b7c4c"
+	light_range = 1
+	light_power = 0.5
 
 /turf/open/water/acid/vamp/Entered(atom/movable/AM)
 	if(acid_burn(AM))
