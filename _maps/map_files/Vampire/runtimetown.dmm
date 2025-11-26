@@ -33,10 +33,6 @@
 /turf/open/floor/plating/rough/cave,
 /area/vtm/outside/pacificheights)
 "bj" = (
-/obj/structure/sign/city/store/gummaguts{
-	pixel_x = 16;
-	pixel_y = 38
-	},
 /obj/structure/closet/secure_closet/freezer,
 /turf/open/floor/city/toilet,
 /area/vtm/interior/shop)
