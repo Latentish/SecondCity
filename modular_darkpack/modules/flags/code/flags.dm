@@ -4,6 +4,7 @@
 	buildable_sign = FALSE
 	custom_materials = null
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+	custom_materials = null
 	var/item_flag = /obj/item/sign/flag
 
 /obj/structure/sign/flag/wrench_act(mob/living/user, obj/item/wrench/I)
