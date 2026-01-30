@@ -322,3 +322,7 @@
   - config: hardlocking things due to 0 dot abilites moved to config (off by default)
   theselfish:
   - rscadd: Loadout Masks now exist.
+2026-01-30:
+  XeonMations:
+  - bugfix: Fixes records showing species.
+  - map: added the ability to have multiple umbra choices based off json map config
