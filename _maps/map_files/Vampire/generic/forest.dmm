@@ -3391,11 +3391,6 @@
 	},
 /turf/open/misc/beach/vamp,
 /area/vtm/outside/forest/sept)
-"Dm" = (
-/obj/structure/glowshroom,
-/obj/effect/decal/remains/human,
-/turf/open/floor/plating/rough/cave,
-/area/vtm/interior/forest/cave)
 "Dn" = (
 /obj/effect/turf_decal/darkpack/grass{
 	dir = 4
@@ -12467,7 +12462,7 @@ FK
 FK
 FK
 Hd
-Dm
+hl
 EH
 LX
 KV
