@@ -70,7 +70,6 @@
 
 	var/lifespan = 0	//How many cycles. He'll be deleted if over than a ten thousand
 	var/old_movement = FALSE
-	var/max_stat = 2
 
 	var/list/spotted_bodies = list()
 
@@ -91,9 +90,11 @@
 	RegisterSignal(src, COMSIG_LIVING_MOB_BUMPED, PROC_REF(handle_bumped))
 	// Be annoyed if helped
 	RegisterSignal(src, COMSIG_CARBON_HELP_ACT, PROC_REF(handle_helped))
+	// all npcs are masquerade violators by default so flip it to true
+	toggle_masquerade_sensitivity(TRUE)
 	return INITIALIZE_HINT_LATELOAD
 
-/mob/living/carbon/human/npc/LateInitialize(mapload)
+/mob/living/carbon/human/npc/LateInitialize()
 	if (role_weapons_chances.Find(type))
 		for(var/weapon in role_weapons_chances[type])
 			if(prob(role_weapons_chances[type][weapon]))
@@ -118,7 +119,6 @@
 
 /mob/living/carbon/human/npc/Destroy()
 	UnregisterSignal(src, list(COMSIG_ATOM_WAS_ATTACKED, COMSIG_LIVING_MOB_BUMPED, COMSIG_CARBON_HELP_ACT))
-	QDEL_NULL(socialrole)
 	danger_source = null
 	QDEL_NULL(afraid_of_fire)
 	last_attacker = null
@@ -133,6 +133,7 @@
 	drop_on_death_list = null
 	GLOB.npc_list -= src
 	GLOB.alive_npc_list -= src
+	SShumannpcpool.currentrun -= src
 	SShumannpcpool.try_repopulate()
 	return ..()
 
